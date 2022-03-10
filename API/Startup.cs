@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace API
 {
@@ -35,15 +36,19 @@ namespace API
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddCors();
+           services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+             
+            //app.UseMvc();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +59,9 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+           app.UseCors(options => 
+                options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
