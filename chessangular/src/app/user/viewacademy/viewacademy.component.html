@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center mt-2">
+    <input type="text" placeholder="search by Academy Name" [(ngModel)]="searchAcademy" (keyup)="sortAcadimies()">
+    <button type="button" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+        </svg>
+    </button>
+</div>
+
+
+
+<!--Retrieving academies list-->
+<div class="row " style="margin:auto;" *ngIf="searchAcademy.length==0">
+    <div class="col-sm-4 mt-5" *ngFor="let item of AcademyList">
+        <div class="card w-100">
+            <img src="{{'https://localhost:5001/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{item.academyname}}</h3>
+                <div class="card-text" style="overflow-x:auto;">
+                    <table class="table table-striped" style="margin: auto;">
+                        <tbody>
+                            <tr>
+                                <td>Academy Description</td>
+                                <td>{{item.academydescription}}</td>
+                            </tr>
+                            <tr>
+                                <td>Academy Address</td>
+                                <td>{{item.academylocation}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td>{{item.academycontactno}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email Id</td>
+                                <td>{{item.academyemail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-center">
+                    <button routerLink="../addAdmission" class="btn btn-primary" (click)="getId(item.academyname)">Show
+                        Courses</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Retriving Acdemies according to the searching text-->
+<div class="row " style="margin:auto;" *ngIf="searchAcademy.length!=0">
+    <div class="col-sm-4 mt-5" *ngFor="let item of sortAcademyList">
+        <div class="card w-100">
+            <img src="{{'https://localhost:5001/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{item.academyname}}</h3>
+                <div class="card-text" style="overflow-x:auto;">
+                    <table class="table table-striped" style="margin: auto;">
+                        <tbody>
+                            <tr>
+                                <td>Academy Description</td>
+                                <td>{{item.academydescription}}</td>
+                            </tr>
+                            <tr>
+                                <td>Academy Address</td>
+                                <td>{{item.academylocation}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td>{{item.academycontactno}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email Id</td>
+                                <td>{{item.academyemail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-center">
+                    <button routerLink="../addAdmission" class="btn btn-primary" (click)="getId(item.academyname)">Show
+                        Courses</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" mt-5" *ngIf="sortAcademyList.length==0">
+        <div class="card text-center w-100">
+            <h4>Academy Name having <span style="color: blueviolet;">{{searchAcademy}}</span> doesn't exist</h4>
+        </div>
+    </div>
+</div>

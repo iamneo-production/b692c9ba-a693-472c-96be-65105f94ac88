@@ -1,0 +1,493 @@
+<div class="container mt-2">
+    <div class="text-center" style="color:purple;">
+        <h3>Your Enrolled Courses</h3>
+    </div>
+</div>
+
+
+<div class="row" style="margin: auto;">
+    <div class="col-sm-4 mt-5" *ngFor="let data of enrollCourses">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="card-text" style="overflow-x:auto;">
+                    <table class="table table-striped" style="margin: auto;">
+                        <tbody>
+                            <tr>
+                                <td>Academy Name</td>
+                                <td>{{data.academyName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Course Name</td>
+                                <td>{{data.courseName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Name</td>
+                                <td>{{data.firstName}} {{data.lastName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-2">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewStaticBackdrop"
+                            style="margin-right: 10px;" (click)="viewModal(data)">
+                            View
+                        </button>
+
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editStaticBackdrop"
+                            style="margin-right: 10px;" (click)="editModal(data)">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteEnrollCourse(data.enrollmentId)"
+                            style="margin-right: 10px;">
+                            Delete
+                        </button>
+
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-dark" (click)="checkFeedback(data)" data-bs-toggle="modal" data-bs-target="#FeedbackStaticBackdrop">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-chat" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
+                            </svg> Feedback
+                        </button>
+                    </div>
+
+                    <!-- View Details-->
+                    <div class="modal fade" id="viewStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title w-100" id="staticBackdropLabel">You
+                                        can only see your details
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" *ngIf="viewModalStatus==true">
+                                    <div class="row justify-content-center">
+
+                                        <!--Academy Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="academyName">Academy Name</label>
+                                            <input type="text" class="form-control" id="academyName"
+                                                value={{viewData.academyName}} readonly>
+                                        </div>
+
+                                        <!--Course Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="courseName">Course Name</label>
+                                            <input type="text" class="form-control" id="courseName"
+                                                value={{viewData.courseName}} readonly>
+                                        </div>
+                                    </div>
+
+                                    <!--Details-->
+                                    <div class="form-row row">
+                                        <label class=" card w-100 mb-2" style="background-color: palegreen;">Personal
+                                            Information</label>
+
+
+                                        <!--First Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" class="form-control" id="firstName"
+                                                value={{viewData.firstName}} readonly>
+                                        </div>
+
+
+                                        <!--Last Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName"
+                                                value={{viewData.lastName}} readonly>
+                                        </div>
+
+                                        <!--Gender-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="gender">Gender</label>
+                                            <input type="text" class="form-control" id="gender"
+                                                value={{viewData.gender}} readonly>
+                                        </div>
+
+                                        <!--Father Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fatherName">Father Name</label>
+                                            <input type="text" class="form-control" id="fatherName"
+                                                value={{viewData.fatherName}} readonly>
+                                        </div>
+
+                                        <!--Mother Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="motherName">Mother Name</label>
+                                            <input type="text" class="form-control" id="motherName"
+                                                value={{viewData.motherName}} readonly>
+                                        </div>
+
+                                        <!--Email Id-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="emailId">Email Id</label>
+                                            <input type="text" class="form-control" id="emailId"
+                                                value={{viewData.email}} readonly>
+                                        </div>
+
+                                        <!--Age-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="age">Age</label>
+                                            <input type="text" class="form-control" id="age" value={{viewData.age}}
+                                                readonly>
+                                        </div>
+
+                                        <!--Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber1">Phone Number</label>
+                                            <input type="text" class="form-control" id="phoneNumber1"
+                                                value={{viewData.phoneNumber1}} readonly>
+                                        </div>
+
+                                        <!--Alternative Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber2">Alternative Phone Number</label>
+                                            <input type="text" class="form-control" id="phoneNumber2"
+                                                value={{viewData.phoneNumber2}} readonly>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <label class=" card mb-2 w-100" style="background-color: palegreen;">Address
+                                                Information</label>
+
+                                            <!--House Number-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="houseNo">House No</label>
+                                                <input type="text" class="form-control" id="houseNo"
+                                                    value={{viewData.houseno}} readonly>
+                                            </div>
+
+                                            <!--Street Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="streetName">Street Name</label>
+                                                <input type="text" class="form-control" id="streetName"
+                                                    value={{viewData.streetname}} readonly>
+                                            </div>
+
+                                            <!--Area Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="areaName">Area Name</label>
+                                                <input type="text" class="form-control" id="areaName"
+                                                    value={{viewData.areaname}} readonly>
+                                            </div>
+
+                                            <!--Pincode-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="pincode">Pincode</label>
+                                                <input type="text" class="form-control" id="pincode"
+                                                    value={{viewData.pincode}} readonly>
+
+                                            </div>
+
+                                            <!--state-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="state">State</label>
+                                                <input type="text" class="form-control" id="state"
+                                                    value={{viewData.statename}} readonly>
+                                            </div>
+
+                                            <!--Nationality-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nationality">Nationality</label>
+                                                <input type="text" class="form-control" id="nationality"
+                                                    value={{viewData.nationality}} readonly>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!--Edit Details-->
+                    <div class="modal fade" id="editStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title  w-100" id="staticBackdropLabel">Edit Your Details Here</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" *ngIf="editModalStatus==true">
+                                    <div class="row justify-content-center">
+
+                                        <!--Academy Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="academyName">Academy Name</label>
+                                            <input type="text" class="form-control" id="editacademyName"
+                                                value={{editData.academyName}} readonly>
+                                        </div>
+
+                                        <!--Course Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="courseName">Course Name</label>
+                                            <input type="text" class="form-control" id="editcourseName"
+                                                value={{editData.courseName}} readonly>
+                                        </div>
+                                    </div>
+
+                                    <form [formGroup]="editFormGroup" class="needs-validation" novalidate>
+                                        <div class="form-row row">
+                                            <label class=" card mb-2 w-100" style="background-color: palegreen;">Personal
+                                                Information</label>
+
+                                            <!--First Name-->
+                                            <div class="col-md-4 mb-3 form-group">
+                                                <label for="firstName">First Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="firstName"
+                                                    formControlName="firstName" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('firstName')?.valid && editFormGroup.get('firstName')?.touched">
+                                                    Name must be in alphabets
+                                                </span>
+                                            </div>
+
+
+                                            <!--Last Name-->
+                                            <div class="col-md-4 mb-3 form-group">
+                                                <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                                    placeholder="Last name" formControlName="lastName" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('lastName')?.valid && editFormGroup.get('lastName')?.touched">
+                                                    Name must be in alphabets
+                                                </span>
+                                            </div>
+
+                                            <!--Gender-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="gender">Gender<span class="text-danger">*</span></label>
+                                                <select class="form-control custom-select custom-select-md mb-3"
+                                                    formControlName="gender">
+                                                    <option value="male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                            </div>
+
+                                            <!--Father Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="fatherName">Father Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="fatherName"
+                                                    placeholder="Enter your father name" formControlName="fatherName"
+                                                    required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('fatherName')?.valid && editFormGroup.get('fatherName')?.touched">
+                                                    Name must be in alphabets
+                                                </span>
+                                            </div>
+
+                                            <!--Mother Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="motherName">Mother Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="motherName"
+                                                    placeholder="Enter your mother name" formControlName="motherName"
+                                                    required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('motherName')?.valid && editFormGroup.get('motherName')?.touched">
+                                                    Name must be in alphabets
+                                                </span>
+                                            </div>
+
+                                            <!--Email Id-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="emailId">Email Id<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="emailId"
+                                                    placeholder="Enter your mail id" formControlName="emailId" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('emailId')?.valid && editFormGroup.get('emailId')?.touched">
+                                                    Enter Correct Mail id
+                                                </span>
+                                            </div>
+
+                                            <!--Age-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="age">Age<span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="age"
+                                                    placeholder="Enter your age here" formControlName="age" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('age')?.valid && editFormGroup.get('age')?.touched">
+                                                    Age must be in numbers like 1,23,99 etc..
+                                                </span>
+                                            </div>
+
+                                            <!--Phone Number-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="phoneNumber1">Phone Number<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="phoneNumber1"
+                                                    placeholder="Phone Number" formControlName="phoneNumber1" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!editFormGroup.get('phoneNumber1')?.valid && editFormGroup.get('phoneNumber1')?.touched">
+                                                    Phone Number must be in 10 digit Number
+                                                </span>
+                                            </div>
+
+                                            <!--Alternative Phone Number-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="phoneNumber2">Alternative Phone Number</label>
+                                                <input type="text" class="form-control" id="editphoneNumber2"
+                                                    placeholder="Alternative Phone Number"
+                                                    value={{editData.phoneNumber2}}>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <label class=" card mb-2 w-100" style="background-color: palegreen;">Address
+                                                    Information</label>
+
+                                                <!--House Number-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="houseNo">House No<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="houseNo"
+                                                        formControlName="houseNo" placeholder="House Number" required>
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('houseNo')?.valid&& editFormGroup.get('houseNo')?.touched">
+                                                        Enter correct house no
+                                                    </span>
+                                                </div>
+
+                                                <!--Street Name-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="streetName">Street Name<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="streetName"
+                                                        formControlName="streetName" placeholder="Street Name" required>
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('streetName')?.valid&& editFormGroup.get('streetName')?.touched">
+                                                        special characters not allowed
+                                                    </span>
+                                                </div>
+
+                                                <!--Area Name-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="areaName">Area Name<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="areaName"
+                                                        formControlName="areaName" placeholder="Area Name">
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('areaName')?.valid&& editFormGroup.get('areaName')?.touched">
+                                                        special characters not allowed
+                                                    </span>
+                                                </div>
+
+                                                <!--Pincode-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="pincode">Pincode<span class="text-danger">*</span></label>
+                                                    <input type="number" class="form-control" id="pincode"
+                                                        placeholder="Pincode" formControlName="pincode">
+
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('pincode')?.valid && editFormGroup.get('pincode')?.touched">
+                                                        Pincode must be in 6 digit Number
+                                                    </span>
+                                                </div>
+
+                                                <!--state-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="state">State<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="state"
+                                                        placeholder="State Name" formControlName="state">
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('state')?.valid && editFormGroup.get('state')?.touched">
+                                                        Only Text Form
+                                                    </span>
+                                                </div>
+
+                                                <!--Nationality-->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="nationality">Nationality<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="nationality"
+                                                        placeholder="Enter your country name"
+                                                        formControlName="nationality">
+                                                    <span class="text-danger alert"
+                                                        *ngIf="!editFormGroup.get('nationality')?.valid && editFormGroup.get('nationality')?.touched">
+                                                        Only Text Form
+                                                    </span>
+                                                </div>
+
+
+                                                <button type="submit" id="enrollNowButton"
+                                                    class="btn btn-primary form-group" [disabled]="!(editFormGroup.get('firstName')?.valid&&
+                                                        editFormGroup.get('lastName')?.valid&&
+                                                        editFormGroup.get('age')?.valid&&
+                                                        editFormGroup.get('fatherName')?.valid&&
+                                                        editFormGroup.get('motherName')?.valid&&
+                                                        editFormGroup.get('phoneNumber1')?.valid&&
+                                                        editFormGroup.get('houseNo')?.valid&&
+                                                        editFormGroup.get('streetName')?.valid&&
+                                                        editFormGroup.get('areaName')?.valid&&
+                                                        editFormGroup.get('pincode')?.valid&&
+                                                        editFormGroup.get('emailId')?.valid&&
+                                                        editFormGroup.get('state')?.valid&&
+                                                        editFormGroup.get('nationality')?.valid)
+                                                        " (click)="updateEnroll()">
+                                                    Update Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Feedback Modal-->
+                    <div class="modal fade" id="FeedbackStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title w-100" id="staticBackdropLabel">Your Feedback</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <div *ngIf="feedbackResults.length!=0; else noFeedback">
+                                        <p>You can update and delete your feedback</p>
+                                        <p *ngIf="updateCommentButton==true" class="text-danger">Feedback can not be empty</p>
+                                       <input type="text" class="form-control" value={{feedbackResults[0].comment}} 
+                                        id="editFeedbackData"  [readonly]="editOption"> 
+                                        <button class="btn btn-primary mt-2" (click)="editOption=!editOption" *ngIf="editOption">
+                                            Edit
+                                        </button>
+                                        <button class="btn btn-primary mt-2" (click)="updateFeedback(feedbackResults[0].commentId)" *ngIf="!editOption">
+                                            Update 
+                                        </button>
+                                        <button class="btn btn-danger mt-2 ms-2" (click)="deleteFeedback(feedbackResults[0].commentId)">
+                                            Delete
+                                        </button>
+                              </div>
+
+                              <ng-template #noFeedback>
+                                <div>
+                                    <p>You have not add the feedback, Add it below</p>
+                                    <p *ngIf="addCommentButton==true" class="text-danger">Feedback can not be empty</p>
+                                    <input type="text" class="form-control" placeholder="Enter Feedback" 
+                                    [(ngModel)]="newFeedback">
+                                    <button class="btn btn-info mt-2" (click)="addFeedback()">Add Feedback</button>
+                                </div>
+                              </ng-template>
+
+
+
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-2 card w-100" *ngIf="enrollCourses.length==0">
+        <h3>You did not enroll atleast one course</h3>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+export interface Enrollment
+{
+    enrollmentId:number;
+    firstName:string;
+    lastName:string;
+    gender:string;
+    fatherName:string;
+    motherName:string;
+    email:string;
+    age:number;
+    phoneNumber1:string;
+    phoneNumber2:string;
+    houseno:string;
+    streetname:string;
+    areaname:string;
+    pincode:string;
+    statename:string;
+    nationality:string;
+    studentName:string;
+    academyName:string;
+    courseName:string;
+}
