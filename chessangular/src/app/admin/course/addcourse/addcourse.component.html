@@ -1,0 +1,49 @@
+<div class="form-froup row">
+    <table width="90%">
+        <tr>
+            <td><input type="text" id="courseName" class="form-control" [(ngModel)]="coursename"
+                placeholder="CourseName"></td>
+            <td> <input type="text" id="courseDuration" class="form-control" [(ngModel)]="duration"
+                placeholder="Enter Duration"></td>
+            <td> <input type="text" id="courseEnrolled" class="form-control" [(ngModel)]="numberofstudent"
+                placeholder="Enter Number Of student"></td>
+        </tr>
+        <tr>
+            <td> <input type="text" id="courseTiming" class="form-control" [(ngModel)]="timing"
+                placeholder="Enter Timing"></td>
+            <td> <input type="text" id="courseDescription" class="form-control" [(ngModel)]="cdescription"
+                placeholder="Course Description"></td>
+            
+        </tr>
+    </table>
+
+    <div class="col-sm-10">
+        
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    
+</div>
+
+<button (click)="addstudent()" *ngIf="course.courseId==0" class="btn btn-primary">
+    Add
+</button>
+
+<button (click)="updatestudent()" *ngIf="course.courseId!=0" class="btn btn-primary">
+    Update
+</button>
+
+
+
+
+
+
+
+

@@ -1,0 +1,89 @@
+<div class="form-froup row">
+    <table width="90%">
+        <tr>
+            <td><input type="text" class="form-control" id="firstname" [(ngModel)]="firstname"
+                placeholder="Enter Name"></td>
+            <td> <input type="text" class="form-control" id="phonenumber1" [(ngModel)]="mobilenumber"
+                placeholder="Enter MobileNumber"></td>
+            <td> <input type="text" class="form-control" id="emailid" [(ngModel)]="email"
+                placeholder="Enter email"></td>
+        </tr>
+        <tr>
+            <td> <input type="text" class="form-control" id="enrolledcourse" [(ngModel)]="enrolledcourse"
+                placeholder="Enter course"></td>
+            <td><input type="text" class="form-control" id="phonenumber2"
+                placeholder="Altervative mobile number"></td>
+            <td><input type="text" class="form-control" id="male/female"
+                placeholder="male of female"></td>
+        </tr>
+    </table>
+
+    <div class="col-sm-10">
+        
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    <div class="col-sm-10">
+       
+    </div>
+    <table class="floatedTable" width="30%">
+        <tr>
+            <td class="n1"><input type="text" class="form-control" 
+                placeholder="Mother name"></td>
+        </tr>
+        <tr >
+            <td><input type="text" class="form-control" 
+                placeholder="father Name"></td>
+        </tr>
+        <tr class="n3">
+            <td><input type="text" class="form-control"
+                placeholder="age"></td>
+        </tr>
+        
+    </table>
+    <table class="inlineTable"  >
+        <tr>
+            <td><input type="text" class="form-control"
+                placeholder="House No."></td>
+        </tr>
+        <tr>
+            <td><input type="text" class="form-control" 
+                placeholder="street Name"></td>
+        </tr>
+        <tr>
+            <td><input type="text" class="form-control"
+                placeholder="Area Name"></td>
+            <td><input type="text" class="form-control"
+                placeholder="State"></td>
+        </tr>
+        <tr>
+            <td><input type="text" class="form-control"
+                placeholder="PinCode"></td>
+            <td><input type="text" class="form-control"
+                placeholder="Nationality"></td>
+        </tr>
+        
+    </table>
+    
+    
+</div>
+
+<button (click)="addstudent()" *ngIf="std.studentId==0" id="addStudent" class="btn btn-primary">
+    Add
+</button>
+
+<button (click)="updatestudent()" *ngIf="std.studentId!=0"  class="btn btn-primary">
+    Update
+</button>
+
+
+
+
+
+
+
+

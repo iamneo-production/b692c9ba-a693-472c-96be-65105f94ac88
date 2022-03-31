@@ -1,0 +1,35 @@
+.wrapper
+{
+    display:grid;
+    grid-template-columns: 30% 30%;
+    grid-row-gap:1em;
+}
+.wrapper > div{
+    background: #eee;
+    padding:lem;
+}
+.wrapper > div:nth-child(odd){
+    background: #eee;
+}
+.invoice-table{
+    
+    
+    border-radius: 5px;
+    margin:25px auto;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+tr{
+    background-color: #eee;
+    padding-right: 5px;
+}
+td{
+    padding-right: 5px;
+}
+
+.form-control
+{
+    width: 30%;
+    margin: 15px;
+    margin-left: 32%;
+}

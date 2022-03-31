@@ -1,0 +1,20 @@
+.wrapper{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-row-gap: 1em;
+    border: 1px solid black;
+    
+    
+}
+.inner
+{
+    margin: 15%;
+    
+}
+.form-control
+{
+    width: 30%;
+  
+    margin-left: 39%;
+    margin-top:10px;
+}

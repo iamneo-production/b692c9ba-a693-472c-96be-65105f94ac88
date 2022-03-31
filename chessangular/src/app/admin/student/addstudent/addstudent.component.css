@@ -1,0 +1,14 @@
+.n1
+{
+    margin-bottom: 5dp;
+}
+.floatedTable {
+    float:left;
+}
+.inlineTable {
+    display: inline-block;
+}
+input
+{
+    background-color: lightgray;
+}
