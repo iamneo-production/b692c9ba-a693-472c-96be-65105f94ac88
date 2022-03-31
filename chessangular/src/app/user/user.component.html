@@ -1,0 +1,19 @@
+<div >
+    <div  style="background-color: blueviolet;">
+        <h3 class="d-flex justify-content-center">Chess Academy Portal</h3>
+        <ul class="nav justify-content-end"> 
+            <li class="nav-item ">
+                <button (click)="logout()" class="m-1 btn btn-light btn-outline-primary">Logout</button>
+            </li>
+        </ul>
+        <ul class="nav justify-content-center ">
+            <li class="nav-item">
+                <button routerLink="academy" class="m-1 btn btn-light btn-outline-primary">Academy</button>
+            </li>
+            <li class="nav-item">
+                <button routerLink="enrolledcourses" class="m-1 btn btn-light btn-outline-primary">Enrolled Courses</button>
+            </li>
+        </ul>
+    </div>    
+    <router-outlet></router-outlet>
+</div>

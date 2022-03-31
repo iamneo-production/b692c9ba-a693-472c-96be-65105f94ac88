@@ -1,0 +1,622 @@
+<div class="d-flex justify-content-center mt-2">
+    <input type="text" placeholder="search by Course Name" [(ngModel)]="searchCourse" (keyup)="sortCourses()">
+    <button type="button" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+        </svg>
+    </button>
+</div>
+
+
+
+<!--General Retriving Courses-->
+<div class="row " style="margin:auto;" *ngIf="searchCourse.length==0">
+    <div class="col-sm-4 mt-5" *ngFor="let item of CourseList">
+        <div class="card w-100">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{item.coursename}}</h3>
+                <div class="card-text" style="overflow-x:auto;">
+                    <table class="table table-striped" style="margin: auto;">
+                        <tbody class="text-center">
+                            <tr>
+                                <td>Course Description</td>
+                                <td>{{item.cdescription}}</td>
+                            </tr>
+                            <tr>
+                                <td>Course Duration</td>
+                                <td>{{item.duration}}</td>
+                            </tr>
+                            <tr>
+                                <td>Course Timings</td>
+                                <td>{{item.timing}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <!-- Button trigger modal -->
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" (click)="transferName(item.coursename)">
+                            Enroll Course
+                        </button>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#commentstaticBackdrop" (click)="commentTransferName(item.coursename)">
+                            See Feedback
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!--Modal for comments-->
+                <div class="modal fade" id="commentstaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: cyan;">
+                                <h3 class="modal-title w-100 text-center" id="staticBackdropLabel">
+                                    Feedback on {{commentCourseName}}</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="row">
+                                <div class="modal-body col-md-4" *ngFor="let feedback of commentList">
+                                    <div class="card text-dark bg-light mb-3">
+                                        <div class="card-body" style="min-height: 8rem;">
+                                            <h5 class="card-title">{{feedback.studentName}}</h5>
+                                            <p class="card-text">{{feedback.comment}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-body text-center container" *ngIf="commentList.length==0">
+                                No Feedbacks are available yet
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center" id="staticBackdropLabel">Fill Your
+                                    Details Here</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="enrollForm" (ngSubmit)="enrolling(item.coursename)"
+                                    class="needs-validation" novalidate>
+                                    <div class="form-row row">
+
+                                        <!--First Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="firstName">First Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="firstName"
+                                                formControlName="firstName" placeholder="First name" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('firstName')?.valid && enrollForm.get('firstName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+
+                                        <!--Last Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                                placeholder="Last name" formControlName="lastName" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('lastName')?.valid && enrollForm.get('lastName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Gender-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="gender">Gender<span class="text-danger">*</span></label>
+                                            <select class="form-control custom-select custom-select-md mb-3"
+                                                formControlName="gender">
+                                                <option value="male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <!--Father Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fatherName">Father Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="fatherName"
+                                                placeholder="Enter your father name" formControlName="fatherName"
+                                                required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('fatherName')?.valid && enrollForm.get('fatherName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Mother Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="motherName">Mother Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="motherName"
+                                                placeholder="Enter your mother name" formControlName="motherName"
+                                                required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('motherName')?.valid && enrollForm.get('motherName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Email Id-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="emailId">Email Id<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="emailId"
+                                                placeholder="Enter your mail id" formControlName="emailId" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('emailId')?.valid && enrollForm.get('emailId')?.touched">
+                                                Enter Correct Mail id
+                                            </span>
+                                        </div>
+
+                                        <!--Age-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="age">Age<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="age"
+                                                placeholder="Enter your age here" formControlName="age" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('age')?.valid && enrollForm.get('age')?.touched">
+                                                Age must be in numbers like 1,23,99 etc..
+                                            </span>
+                                        </div>
+
+                                        <!--Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber1">Phone Number<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="phoneNumber1"
+                                                placeholder="Phone Number" formControlName="phoneNumber1" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('phoneNumber1')?.valid && enrollForm.get('phoneNumber1')?.touched">
+                                                Phone Number must be in 10 digit Number
+                                            </span>
+                                        </div>
+
+                                        <!--Alternative Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber2">Alternative Phone Number</label>
+                                            <input type="text" class="form-control" id="phoneNumber2"
+                                                placeholder="Alternative Phone Number">
+
+                                        </div>
+
+                                        <div class="row">
+                                            <label>Address Information</label>
+
+                                            <!--House Number-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="houseNo">House No<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="houseNo"
+                                                    formControlName="houseNo" placeholder="House Number" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('houseNo')?.valid && enrollForm.get('houseNo')?.touched">
+                                                    Enter correct house no
+                                                </span>
+
+                                            </div>
+
+                                            <!--Street Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="streetName">Street Name<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="streetName"
+                                                    formControlName="streetName" placeholder="Street Name" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('streetName')?.valid && enrollForm.get('streetName')?.touched">
+                                                    No special characters allowed
+                                                </span>
+                                            </div>
+
+                                            <!--Area Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="areaName">Area Name<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="areaName"
+                                                    formControlName="areaName" placeholder="Area Name">
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('areaName')?.valid && enrollForm.get('areaName')?.touched">
+                                                    No special characters allowed
+                                                </span>
+                                            </div>
+
+                                            <!--Pincode-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="pincode">Pincode<span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="pincode"
+                                                    placeholder="Pincode" formControlName="pincode">
+
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('pincode')?.valid && enrollForm.get('pincode')?.touched">
+                                                    Pincode must be in 6 digit Number
+                                                </span>
+                                            </div>
+
+                                            <!--state-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="state">State<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="state"
+                                                    placeholder="State Name" formControlName="state">
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('state')?.valid && enrollForm.get('state')?.touched">
+                                                    Only Text Form
+                                                </span>
+                                            </div>
+
+                                            <!--Nationality-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nationality">Nationality<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="nationality"
+                                                    placeholder="Enter your country name" formControlName="nationality">
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('nationality')?.valid && enrollForm.get('nationality')?.touched">
+                                                    Only Text Form
+                                                </span>
+                                            </div>
+
+
+                                            <button type="submit" id="enrollNowButton"
+                                                class="btn btn-primary form-group" [disabled]="!(enrollForm.get('firstName')?.valid&&
+                                                enrollForm.get('lastName')?.valid&&
+                                                enrollForm.get('age')?.valid&&
+                                                enrollForm.get('fatherName')?.valid&&
+                                                enrollForm.get('motherName')?.valid&&
+                                                enrollForm.get('phoneNumber1')?.valid&&
+                                                enrollForm.get('pincode')?.valid&& 
+                                                enrollForm.get('emailId')?.valid&&
+                                                enrollForm.get('houseNo')?.valid&&
+                                                enrollForm.get('streetName')?.valid&&
+                                                enrollForm.get('areaName')?.valid&&
+                                                enrollForm.get('state')?.valid&&
+                                                enrollForm.get('nationality')?.valid&&
+                                                enrollForm.get('gender')?.valid)
+                                                ">
+                                                Enroll Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-5" *ngIf="!isCoursePresent">
+    <div class="card w-100 text-center">
+        <h3>No Courses are available in this academy</h3>
+    </div>
+</div>
+
+
+<!--Searching Courses-->
+<div class="row " style="margin:auto;" *ngIf="searchCourse.length!=0">
+    <div class="col-sm-4 mt-5" *ngFor="let item of sortCourseList">
+        <div class="card w-100">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{item.coursename}}</h3>
+                <div class="card-text" style="overflow-x:auto;">
+                    <table class="table table-striped" style="margin: auto;">
+                        <tbody>
+                            <tr>
+                                <td>Course Description</td>
+                                <td>{{item.cdescription}}</td>
+                            </tr>
+                            <tr>
+                                <td>Course Duration</td>
+                                <td>{{item.duration}}</td>
+                            </tr>
+                            <tr>
+                                <td>Course Timings</td>
+                                <td>{{item.timing}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <!-- Button trigger modal -->
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" (click)="transferName(item.coursename)">
+                            Enroll Course
+                        </button>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#commentstaticBackdrop" (click)="commentTransferName(item.coursename)">
+                            See Feedback
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!--Modal for comments-->
+                <div class="modal fade" id="commentstaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: cyan;">
+                                <h3 class="modal-title w-100 text-center" id="staticBackdropLabel">
+                                    Feedback on {{commentCourseName}}</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="row">
+                                <div class="modal-body col-md-4" *ngFor="let feedback of commentList">
+                                    <div class="card text-dark bg-light mb-3">
+                                        <div class="card-body" style="min-height: 8rem;">
+                                            <h5 class="card-title">{{feedback.studentName}}</h5>
+                                            <p class="card-text">{{feedback.comment}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-body text-center container" *ngIf="commentList.length==0">
+                                No Feedbacks are available yet
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center" id="staticBackdropLabel">Fill Your
+                                    Details Here</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+
+                            <div class="modal-body">
+                                <form [formGroup]="enrollForm" (ngSubmit)="enrolling(item.coursename)"
+                                    class="needs-validation" novalidate>
+                                    <div class="form-row row">
+
+                                        <!--First Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="firstName">First Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="firstName"
+                                                formControlName="firstName" placeholder="First name" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('firstName')?.valid && enrollForm.get('firstName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+
+                                        <!--Last Name-->
+                                        <div class="col-md-4 mb-3 form-group">
+                                            <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                                placeholder="Last name" formControlName="lastName" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('lastName')?.valid && enrollForm.get('lastName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Gender-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="gender">Gender<span class="text-danger">*</span></label>
+                                            <select class="form-control custom-select custom-select-md mb-3"
+                                                formControlName="gender">
+                                                <option value="male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <!--Father Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fatherName">Father Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="fatherName"
+                                                placeholder="Enter your father name" formControlName="fatherName"
+                                                required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('fatherName')?.valid && enrollForm.get('fatherName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Mother Name-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="motherName">Mother Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="motherName"
+                                                placeholder="Enter your mother name" formControlName="motherName"
+                                                required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('motherName')?.valid && enrollForm.get('motherName')?.touched">
+                                                Name must be in alphabets
+                                            </span>
+                                        </div>
+
+                                        <!--Email Id-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="emailId">Email Id<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="emailId"
+                                                placeholder="Enter your mail id" formControlName="emailId" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('emailId')?.valid && enrollForm.get('emailId')?.touched">
+                                                Enter Correct Mail id
+                                            </span>
+                                        </div>
+
+                                        <!--Age-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="age">Age<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="age"
+                                                placeholder="Enter your age here" formControlName="age" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('age')?.valid && enrollForm.get('age')?.touched">
+                                                Age must be in numbers like 1,23,99 etc..
+                                            </span>
+                                        </div>
+
+                                        <!--Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber1">Phone Number<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="phoneNumber1"
+                                                placeholder="Phone Number" formControlName="phoneNumber1" required>
+                                            <span class="text-danger alert"
+                                                *ngIf="!enrollForm.get('phoneNumber1')?.valid && enrollForm.get('phoneNumber1')?.touched">
+                                                Phone Number must be in 10 digit Number
+                                            </span>
+                                        </div>
+
+                                        <!--Alternative Phone Number-->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="phoneNumber2">Alternative Phone Number</label>
+                                            <input type="text" class="form-control" id="phoneNumber2"
+                                                placeholder="Alternative Phone Number">
+
+                                        </div>
+
+                                        <div class="row">
+                                            <label>Address Information</label>
+
+                                            <!--House Number-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="houseNo">House No<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="houseNo" name="houseNo"
+                                                    formControlName="houseNo" placeholder="House Number" required>
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('houseNo')?.valid && enrollForm.get('houseNo')?.touched">
+                                                    Enter correct house no
+                                                </span>
+
+                                            </div>
+
+                                            <!--Street Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="streetName">Street Name<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="streetName"
+                                                    formControlName="streetName" placeholder="Street Name" required>
+
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('streetName')?.valid && enrollForm.get('streetName')?.touched">
+                                                    No special characters allowed
+                                                </span>
+
+                                            </div>
+
+                                            <!--Area Name-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="areaName">Area Name<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="areaName"
+                                                    formControlName="areaName" placeholder="Area Name">
+
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('areaName')?.valid && enrollForm.get('areaName')?.touched">
+                                                    No special characters allowed
+                                                </span>
+                                            </div>
+
+                                            <!--Pincode-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="pincode">Pincode<span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="pincode"
+                                                    placeholder="Pincode" formControlName="pincode">
+
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('pincode')?.valid && enrollForm.get('pincode')?.touched">
+                                                    Pincode must be in 6 digit Number
+                                                </span>
+                                            </div>
+
+                                            <!--state-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="state">State<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="state"
+                                                    placeholder="State Name" formControlName="state">
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('state')?.valid && enrollForm.get('state')?.touched">
+                                                    Only Text Form
+                                                </span>
+                                            </div>
+
+                                            <!--Nationality-->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nationality">Nationality<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="nationality"
+                                                    placeholder="Enter your country name" formControlName="nationality">
+                                                <span class="text-danger alert"
+                                                    *ngIf="!enrollForm.get('nationality')?.valid && enrollForm.get('nationality')?.touched">
+                                                    Only Text Form
+                                                </span>
+                                            </div>
+
+
+                                            <button type="submit" id="enrollNowButton"
+                                                class="btn btn-primary form-group" [disabled]="!(enrollForm.get('firstName')?.valid&&
+                                                enrollForm.get('lastName')?.valid&&
+                                                enrollForm.get('age')?.valid&&
+                                                enrollForm.get('fatherName')?.valid&&
+                                                enrollForm.get('motherName')?.valid&&
+                                                enrollForm.get('phoneNumber1')?.valid&&
+                                                enrollForm.get('pincode')?.valid&&
+                                                enrollForm.get('emailId')?.valid&&
+                                                enrollForm.get('state')?.valid&&
+                                                enrollForm.get('nationality')?.valid&&
+                                                enrollForm.get('gender')?.valid)
+                                                ">
+                                                Enroll Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5" *ngIf="sortCourseList.length==0">
+        <div class="card text-center w-100">
+            <h3>There are no courses with Name <span style="color: darkorange;">{{searchCourse}}</span></h3>
+        </div>
+    </div>
+</div>
