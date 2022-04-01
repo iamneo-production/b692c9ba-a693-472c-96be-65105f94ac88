@@ -10,7 +10,7 @@ import { Course } from '../shared/courseModel';
       providedIn: 'root'
 })
 export class UserService {
-      readonly ApiUrl = "https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io/";
+      readonly ApiUrl = "https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io";
 
       public academyNameClicked: any;
 
@@ -25,7 +25,7 @@ export class UserService {
                   }
       )
       }
-      BaseUrl = "https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io/";
+      BaseUrl = "https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io";
       // Parse the CurrentUser From URL
       CurrentUser!: string;
       CurrentUserEmail!: string;

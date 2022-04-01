@@ -15,7 +15,7 @@
 <div class="row " style="margin:auto;" *ngIf="searchAcademy.length==0">
     <div class="col-sm-4 mt-5" *ngFor="let item of AcademyList">
         <div class="card w-100">
-            <img src="{{'https://localhost:5001/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
+            <img src="{{'https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
             <div class="card-body">
                 <h3 class="card-title text-center">{{item.academyname}}</h3>
                 <div class="card-text" style="overflow-x:auto;">
@@ -55,7 +55,7 @@
 <div class="row " style="margin:auto;" *ngIf="searchAcademy.length!=0">
     <div class="col-sm-4 mt-5" *ngFor="let item of sortAcademyList">
         <div class="card w-100">
-            <img src="{{'https://localhost:5001/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
+            <img src="{{'https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io/Photos/'+item.academyimage}}" class="card-img-top rounded mx-auto d-block" id="myImage"alt="{{item.academyimage}}">
             <div class="card-body">
                 <h3 class="card-title text-center">{{item.academyname}}</h3>
                 <div class="card-text" style="overflow-x:auto;">
