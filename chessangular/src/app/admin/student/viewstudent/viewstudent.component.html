@@ -1,6 +1,6 @@
 
 <button type="button" class="btn btn-primary float-right m-2" 
-data-toggle="modal" data-target="#exampleModal"
+data-bs-toggle="modal" data-bs-target="#exampleModal"
 (click)="addClick()"
 data-backdrop="static" data-keyboard="false"
 >
@@ -14,7 +14,7 @@ data-backdrop="static" data-keyboard="false"
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">{{ModelTitle}}</h5>
           <button type="button" class="close" 
-          data-dismiss="modal" aria-label="Close"
+          data-bs-dismiss="modal" aria-label="Close"
           (click)="closeClick()" >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -52,7 +52,7 @@ data-backdrop="static" data-keyboard="false"
             <td>{{dataItem.email}}</td>
             <td>
                 <button type="button" class="btn btn-light mr-1"
-                data-toggle="modal" data-target="#exampleModal" id="editStudent"
+                data-bs-toggle="modal" data-bs-target="#exampleModal" id="editStudent"
 (click)="editClick(dataItem)"
 data-backdrop="static" data-keyboard="false"
 ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

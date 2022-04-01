@@ -9,5 +9,6 @@
         public string numberofstudent { get; set; }
         public string timing { get; set; }
         public string cdescription { get; set; }
+        public string academyname { get; set; }
     }
 }

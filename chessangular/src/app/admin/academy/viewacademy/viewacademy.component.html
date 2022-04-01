@@ -1,9 +1,9 @@
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary float-right m-2" 
-data-toggle="modal" data-target="#exampleModal"
+data-bs-toggle="modal" data-bs-target="#exampleModal"
 (click)="addClick()"
-data-backdrop="static" data-keyboard="false"
+data-backdro  p="static" data-keyboard="false"
 >
     Add Academy
   </button>
@@ -19,7 +19,7 @@ data-backdrop="static" data-keyboard="false"
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
           <button type="button" class="close" 
-          data-dismiss="modal" aria-label="Close"
+          data-bs-dismiss="modal" aria-label="Close"
           (click)="closeClick()" >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -40,8 +40,9 @@ data-backdrop="static" data-keyboard="false"
       <img src="https://localhost:5001/Photos/{{dataItem.academyimage}}" width="250" height="200" >
       <br>
       <pre> {{dataItem.academyname}}</pre>
+      <pre> {{dataItem.academylocation}}</pre>
       <button type="button" id="editAcademy" class="btn btn-light mr-1"
-                data-toggle="modal" data-target="#exampleModal"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
 (click)="editClick(dataItem)"
 data-backdrop="static" data-keyboard="false"
                 >

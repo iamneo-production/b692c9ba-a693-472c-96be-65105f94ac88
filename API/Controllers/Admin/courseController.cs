@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select courseId, coursename, duration, numberofstudent,timing, cdescription from dbo.course";
+                    select courseId, coursename, duration, numberofstudent,timing, cdescription, academyname from dbo.course";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
             SqlDataReader myReader;
@@ -60,6 +60,7 @@ namespace WebAPI.Controllers
                     ,'" + dep.numberofstudent + @"'
                     ,'" + dep.timing + @"'
                     ,'" + dep.cdescription + @"'
+                    ,'" + dep.academyname + @"'
                     )
                     ";
             DataTable table = new DataTable();
@@ -91,7 +92,8 @@ namespace WebAPI.Controllers
                     duration =  '" + dep.duration + @"',
                     numberofstudent =  '" + dep.numberofstudent + @"',
                     timing =  '" + dep.timing + @"',
-                    cdescription =  '" + dep.cdescription + @"'
+                    cdescription =  '" + dep.cdescription + @"',
+                    academyname =  '" + dep.academyname + @"'
 
                     where courseId = " + dep.courseId + @" 
                     ";
@@ -118,6 +120,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
+            
             string query = @"
                     delete from dbo.course
                     where courseId = " + id + @" 

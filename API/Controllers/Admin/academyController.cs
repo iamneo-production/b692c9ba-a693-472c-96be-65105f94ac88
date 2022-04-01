@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         {
             string query = @"
                     select academyid, academyname, academydescription
-                    ,academyimage
+                    ,academyimage,academyname, academylocation, academycontactno, academyemail
                     from dbo.academy
                     ";
             DataTable table = new DataTable();
@@ -97,6 +97,9 @@ namespace WebAPI.Controllers
                     academyname = '" + emp.academyname + @"'
                     ,academycontactno = '" + emp.academycontactno + @"'
                     ,academylocation = '" + emp.academylocation + @"'
+                    ,academyimage = '" + emp.academyimage + @"'
+                    ,academyemail = '" + emp.academyemail + @"'
+                    ,academydescription = '" + emp.academydescription + @"'
                     where academyid = " + emp.academyid+ @" 
                     ";
             DataTable table = new DataTable();

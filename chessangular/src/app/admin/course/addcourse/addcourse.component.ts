@@ -16,13 +16,15 @@ export class AddcourseComponent implements OnInit {
   numberofstudent!:string;
   timing!:string;
   cdescription!:string;
+  academyname!:string;
   ngOnInit(): void {
     this.courseId=this.course.courseId;
     this.coursename=this.course.coursename;
     this.duration=this.course.duration;  
     this.numberofstudent=this.course.numberofstudent;  
     this.timing=this.course.timing;  
-    this.cdescription=this.course.cdescription;  
+    this.cdescription=this.course.cdescription;
+    this.academyname=this.course.academyname;
   }
   addstudent(){
     var val = {courseId:this.courseId,
@@ -30,7 +32,8 @@ export class AddcourseComponent implements OnInit {
                 duration:this.duration,
                 numberofstudent:this.numberofstudent,
                 timing:this.timing,
-                cdescription:this.cdescription
+                cdescription:this.cdescription,
+                academyname:this.academyname
               };
     
     this.service.addcourse(val).subscribe(res=>{
@@ -45,7 +48,8 @@ export class AddcourseComponent implements OnInit {
       duration:this.duration,
       numberofstudent:this.numberofstudent,
       timing:this.timing,
-      cdescription:this.cdescription};
+      cdescription:this.cdescription,
+    academyname:this.academyname};
     this.service.updatecourse(val).subscribe(res=>{
     alert(res.toString());
     });

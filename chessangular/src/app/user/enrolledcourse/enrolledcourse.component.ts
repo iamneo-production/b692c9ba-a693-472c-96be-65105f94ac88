@@ -15,24 +15,24 @@ export class EnrolledcourseComponent implements OnInit {
   enrollCourses: any[] = [];
   editData!: any;
   viewData!: any;
-  feedbackData!:any;
+  feedbackData!: any;
   editModalStatus = false;
   viewModalStatus = false;
   editFormGroup!: FormGroup;
-  route!:any;
-  feedbackResults:any[]=[];
-  newFeedback:any;
-  editFeedback:any;
-  editOption:boolean = true;
-  addCommentButton=false;
+  route!: any;
+  feedbackResults: any[] = [];
+  newFeedback: any;
+  editFeedback: any;
+  editOption: boolean = true;
+  addCommentButton = false;
   updateCommentButton = false;
-  username:any;
+  username: any;
 
 
-  constructor(private service: UserService,private router: Router,private _loginService: LoginService) {
-    this.username=this._loginService.usernameClicked;
+  constructor(private service: UserService, private router: Router, private _loginService: LoginService) {
+    this.username = this._loginService.usernameClicked;
 
-   }
+  }
   ngOnInit(): void {
 
     this.username = this._loginService.usernameClicked;
@@ -49,7 +49,7 @@ export class EnrolledcourseComponent implements OnInit {
   deleteEnrollCourse(id: number) {
     this.service.deleteEnrollCourse(id).subscribe(res => {
       alert(res.toString() + "\n Relaod to update your enrolled courses");
-     // window.location.reload();
+      // window.location.reload();
     })
   }
 
@@ -106,94 +106,85 @@ export class EnrolledcourseComponent implements OnInit {
     this.viewData = data;
   }
 
-  updateEnroll()
-  {
+  updateEnroll() {
     console.log((<HTMLInputElement>document.getElementById('editphoneNumber2')).value);
-    var enrollmentData ={
-      enrollmentId:this.editData.enrollmentId,
-      firstName:this.editFormGroup.get('firstName')?.value,
-      lastName:this.editFormGroup.get('lastName')?.value,
-      gender:this.editFormGroup.get('gender')?.value,
-      fatherName:this.editFormGroup.get('fatherName')?.value,
-      motherName:this.editFormGroup.get('motherName')?.value,
-      email:this.editFormGroup.get('emailId')?.value,
-      age:this.editFormGroup.get('age')?.value,
-      phoneNumber1:this.editFormGroup.get('phoneNumber1')?.value,
-      phoneNumber2:(<HTMLInputElement>document.getElementById('editphoneNumber2')).value,
-      houseno:this.editFormGroup.get('houseNo')?.value,
-      streetname:this.editFormGroup.get('streetName')?.value,
-      areaname:this.editFormGroup.get('areaName')?.value,
-      pincode:this.editFormGroup.get('pincode')?.value,
-      statename:this.editFormGroup.get('state')?.value,
-      nationality:this.editFormGroup.get('nationality')?.value,
-      studentName:this.username,
-      academyName:(<HTMLInputElement>document.getElementById('editacademyName')).value,
-      courseName:(<HTMLInputElement>document.getElementById('editcourseName')).value
-  }
-  console.log(enrollmentData);
-  this.service.editEnrollCourse(enrollmentData).subscribe(res=>
-    {
+    var enrollmentData = {
+      enrollmentId: this.editData.enrollmentId,
+      firstName: this.editFormGroup.get('firstName')?.value,
+      lastName: this.editFormGroup.get('lastName')?.value,
+      gender: this.editFormGroup.get('gender')?.value,
+      fatherName: this.editFormGroup.get('fatherName')?.value,
+      motherName: this.editFormGroup.get('motherName')?.value,
+      email: this.editFormGroup.get('emailId')?.value,
+      age: this.editFormGroup.get('age')?.value,
+      phoneNumber1: this.editFormGroup.get('phoneNumber1')?.value,
+      phoneNumber2: (<HTMLInputElement>document.getElementById('editphoneNumber2')).value,
+      houseno: this.editFormGroup.get('houseNo')?.value,
+      streetname: this.editFormGroup.get('streetName')?.value,
+      areaname: this.editFormGroup.get('areaName')?.value,
+      pincode: this.editFormGroup.get('pincode')?.value,
+      statename: this.editFormGroup.get('state')?.value,
+      nationality: this.editFormGroup.get('nationality')?.value,
+      studentName: this.username,
+      academyName: (<HTMLInputElement>document.getElementById('editacademyName')).value,
+      courseName: (<HTMLInputElement>document.getElementById('editcourseName')).value
+    }
+    console.log(enrollmentData);
+    this.service.editEnrollCourse(enrollmentData).subscribe(res => {
       alert(res.toString());
       //window.location.reload();
     })
   }
 
-  checkFeedback(data:any)
-  {
+  checkFeedback(data: any) {
     this.feedbackData = data;
-    this.service.checkComment(this.username,this.feedbackData.academyName,this.feedbackData.courseName).subscribe(
-      res=>
-      {
-        this.feedbackResults=res;
+    this.service.checkComment(this.username, this.feedbackData.academyName, this.feedbackData.courseName).subscribe(
+      res => {
+        this.feedbackResults = res;
       }
     )
   }
 
-  addFeedback()
-  {
-    if(this.newFeedback==undefined)
-    {
-        this.addCommentButton =true;
+  addFeedback() {
+    if (this.newFeedback == undefined) {
+      this.addCommentButton = true;
     }
-    else
-    {
-      this.service.addComment(this.username,this.feedbackData.academyName,this.feedbackData.courseName,this.newFeedback).subscribe(
-        res=>
-        {
-         alert(res.toString());
-        // window.location.reload();
-        }
-       )
-    }
-    
-  }
-
-  updateFeedback(id:number)
-  {
-    const data = (<HTMLInputElement>document.getElementById('editFeedbackData')).value;
-    if(data.length==0)
-    {
-      this.updateCommentButton =true;
-    }
-    else
-    {
-      this.service.editComment(id,data).subscribe(res=>
-        {
+    else {
+      this.service.addComment(this.username, this.feedbackData.academyName, this.feedbackData.courseName, this.newFeedback).subscribe(
+        res => {
           alert(res.toString());
+          // window.location.reload();
         }
       )
     }
-    
+
   }
 
-  deleteFeedback(id:number)
-  {
-     this.service.deleteComment(id).subscribe(res=>
-      {
+  updateFeedback(id: number) {
+    const data = (<HTMLInputElement>document.getElementById('editFeedbackData')).value;
+    if (data.length == 0) {
+      this.updateCommentButton = true;
+    }
+    else {
+      this.service.editComment(id, data).subscribe(res => {
         alert(res.toString());
-       // window.location.reload();
       }
       )
+    }
+
   }
- 
+
+  deleteFeedback(id: number) {
+    this.service.deleteComment(id).subscribe(res => {
+      alert(res.toString());
+      // window.location.reload();
+    }
+    )
+  }
+
+  closeModal() {
+    this.getEnrollCourse(this.username);
+
+  }
+
 }

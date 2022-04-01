@@ -49,20 +49,20 @@ namespace WebApp.Controllers
                     else
                     {
                         string query = @"select * from dbo.Users where
-                                    email='" +data.email + @"' and password='" + data.password + @"'
+                                    email='" + data.email + @"' and password='" + data.password + @"'
                                     ";
                         DataTable table = new DataTable();
                         //string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
                         SqlDataReader myReader;
-                            using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                            {
-                                myReader = myCommand.ExecuteReader();
-                                table.Load(myReader);
-                                myReader.Close();
-                                myCon.Close();
+                        using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                        {
+                            myReader = myCommand.ExecuteReader();
+                            table.Load(myReader);
+                            myReader.Close();
+                            myCon.Close();
 
-                            }
-                       
+                        }
+
                         return new JsonResult(table);
                     }
 
@@ -72,7 +72,7 @@ namespace WebApp.Controllers
 
         }
 
-
+        //Entity framework login code
         // public async Task<IActionResult> IsUserPresent([FromBody] Login data)
         // {
 
@@ -101,19 +101,79 @@ namespace WebApp.Controllers
 
 
         [HttpPost("user/signup")]
-        public async Task<IActionResult> saveUser(User data)
+        public JsonResult saveUser(User data)
         {
-            var user = await _context.Users.FindAsync(data.email);
-
-            if (user == null)
+            string checkQuery = @"select count(*) from dbo.Users where
+                   email='" + data.email + @"'";
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
-                await _context.Users.AddAsync(data);
-                _context.SaveChanges();
+                myCon.Open();
+                using (SqlCommand checkCommand = new SqlCommand(checkQuery, myCon))
+                {
+                    int records = (int)checkCommand.ExecuteScalar();
+                    if (records != 0)
+                    {
+                        myCon.Close();
+                        return new JsonResult("User is already available");
 
-                return Ok(new { StatusCode = 200, Message = "User Added", Allowed = true });
+                    }
+                    else
+                    {
+                        string usernameQuery = @"select count(*) from dbo.Users where
+                   username='" + data.username + @"'";
+                        using (SqlCommand checkusernamecommand = new SqlCommand(usernameQuery, myCon))
+                        {
+                            int userRecord = (int)checkusernamecommand.ExecuteScalar();
+                            if (userRecord != 0)
+                            {
+                                myCon.Close();
+                                return new JsonResult("Username already available");
+                            }
+                            else
+                            {
+                                string signupQuery = @" insert into dbo.Users values(
+                                    '" + data.email + @"','" + data.password + @"','" + data.username + @"',
+                                    '" + data.mobileNumber + @"','" + data.userRole + @"'
+                                )";
+                                DataTable table = new DataTable();
+                                SqlDataReader myReader;
+                                using (SqlCommand myCommand = new SqlCommand(signupQuery, myCon))
+                                {
+                                    myReader = myCommand.ExecuteReader();
+                                    table.Load(myReader);
+                                    myReader.Close();
+                                    myCon.Close();
+
+                                }
+
+                                return new JsonResult("User successfully added");
+
+                            }
+                        }
+                    }
+
+                }
+
             }
-            return BadRequest(new { StatusCode = 400, Message = "Already a User Available", Allowed = false });
+
         }
+
+
+        //Signup Entity code
+        // public async Task<IActionResult> saveUser(User data)
+        // {
+        //     var user = await _context.Users.FindAsync(data.email);
+
+        //     if (user == null)
+        //     {
+        //         await _context.Users.AddAsync(data);
+        //         _context.SaveChanges();
+
+        //         return Ok(new { StatusCode = 200, Message = "User Added", Allowed = true });
+        //     }
+        //     return BadRequest(new { StatusCode = 400, Message = "Already a User Available", Allowed = false });
+        // }
 
         [HttpPost("admin/login")]
         public IActionResult isAdminPresent([FromBody] Login data)
@@ -156,6 +216,3 @@ namespace WebApp.Controllers
         }
     }
 }
-//AuthController
-//comment added
-//user controller

@@ -20,6 +20,9 @@ export class AddstudentComponent implements OnInit {
   ngOnInit(): void {
     this.studentId=this.std.studentId;
     this.firstname=this.std.firstname;
+    this.mobilenumber=this.std.mobilenumber;
+    this.email=this.std.email;
+    this.enrolledcourse=this.std.enrolledcourse;
   }
   addstudent(){
     var val = {studentId:this.studentId,

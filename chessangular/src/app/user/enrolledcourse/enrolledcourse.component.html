@@ -216,7 +216,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title  w-100" id="staticBackdropLabel">Edit Your Details Here</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" *ngIf="editModalStatus==true">
@@ -446,7 +446,7 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title w-100" id="staticBackdropLabel">Your Feedback</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                               <div *ngIf="feedbackResults.length!=0; else noFeedback">

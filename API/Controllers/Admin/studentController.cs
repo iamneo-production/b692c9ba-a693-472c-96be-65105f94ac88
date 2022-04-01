@@ -10,7 +10,7 @@ using System.Data;
 using API.Entities;
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("admin/student")]
     [ApiController]
     public class studentController : ControllerBase
     {
@@ -86,7 +86,10 @@ namespace WebAPI.Controllers
         {
             string query = @"
                     update dbo.student set 
-                    firstname = '" + dep.firstname + @"'
+                    firstname = '" + dep.firstname + @"',
+                    mobilenumber = '" + dep.mobilenumber + @"',
+                    email = '" + dep.email + @"',
+                    enrolledcourse = '" + dep.enrolledcourse + @"'
                     where studentId = " + dep.studentId + @" 
                     ";
             DataTable table = new DataTable();

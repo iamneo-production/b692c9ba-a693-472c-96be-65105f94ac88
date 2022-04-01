@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
 @Component({
-  selector: 'app-viewacademy',
+  selector: 'app-viewacademy1',
   templateUrl: './viewacademy.component.html',
   styleUrls: ['./viewacademy.component.css']
 })
@@ -28,6 +28,9 @@ export class ViewacademyComponent implements OnInit {
       academyid:0,
       academyname:"",
       academydescription:"",
+      academylocation:"",
+      academycontactno:"",
+      academyemail:"",
       academyimage:"anonymous.png"
     }
     this.ModalTitle="Add Academy";
@@ -38,7 +41,7 @@ export class ViewacademyComponent implements OnInit {
   editClick(item: any){
     console.log(item);
     this.academy=item;
-    this.ModalTitle="Edit Employee";
+    this.ModalTitle="Edit Academy";
     this.ActivateAddEditacademyComp=true;
   }
 
@@ -49,6 +52,7 @@ export class ViewacademyComponent implements OnInit {
         this.refreshacademylist();
       })
     }
+   
   }
 
   closeClick(){

@@ -69,20 +69,30 @@ export class SignupComponent implements OnInit {
         
         this._loginService.SignupCheck(body).subscribe({
             next: (data) => {
-                this.auth = data.allowed;
-
-                if(this.auth) {
+                if(data.toString()=="User is already available") {
+                    this.toast.error({detail: " Signup Failed!!  User Already Available" , duration: 5000});
+                }
+                else if(data.toString()=="Username already available") {
+                    this.toast.error({detail: " Signup Failed!!  UserName Already Available" , duration: 5000});
+                }
+                else if(data.toString()=="User successfully added") {
                     this.toast.success({detail: "Signup Success!" , duration: 5000 });
                     this._loginService.router.navigate(['auth', 'login']);
                 }
-                else {
-                    this.toast.error({detail: " Signup Failed!!  User Already Available" , duration: 5000});
-                }
-                console.log(this.auth);
-            },
-            error: (err) => {
-                console.log(err);
-                this.toast.error({ detail: "An Error Occured!!  May be User Already Available!", duration: 4000 })
+            //     this.auth = data.allowed;
+
+            //     if(this.auth) {
+            //         this.toast.success({detail: "Signup Success!" , duration: 5000 });
+            //         this._loginService.router.navigate(['auth', 'login']);
+            //     }
+            //     else {
+            //         this.toast.error({detail: " Signup Failed!!  User Already Available" , duration: 5000});
+            //     }
+            //     console.log(this.auth);
+            // },
+            // error: (err) => {
+            //     console.log(err);
+            //     this.toast.error({ detail: "An Error Occured!!  May be User Already Available!", duration: 4000 })
             }
             
         });
