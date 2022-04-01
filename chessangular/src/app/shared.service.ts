@@ -7,8 +7,8 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-readonly APIUrl="https://localhost:5001/";
-readonly PhotoUrl = "https://localhost:5001/Photos/";
+readonly APIUrl="https://8080-cfdbfaffcbafbeaabeccbbfbcafdeccaedae.examlyiopb.examly.io/";
+readonly PhotoUrl = "https://8080-cfdbfaffcbafbeaabeccbbfbcafdeccaedae.examlyiopb.examly.io/Photos/";
 
   constructor(private http:HttpClient) { }
 

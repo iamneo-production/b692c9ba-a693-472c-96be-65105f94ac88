@@ -23,6 +23,7 @@ import { AddcourseComponent } from './admin/course/addcourse/addcourse.component
 import { AcademyComponent } from './admin/academy/academy.component';
 import { AddacademyComponent } from './admin/academy/addacademy/addacademy.component';
 import { ViewacademyComponent } from './admin/academy/viewacademy/viewacademy.component';
+
   
 //User
 import { UserComponent } from './user/user.component';

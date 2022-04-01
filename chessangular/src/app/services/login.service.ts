@@ -22,7 +22,7 @@ export class LoginService {
            )
     }
 
-    BaseUrl = "https://localhost:5001/";
+    BaseUrl = "https://8080-ecbeedecdfbccdeadecdaababeda.examlyiopb.examly.io/";
 
     // Login Check For Normal Users
     LoginCheck(_email: string, _password: string): Observable<ResponseModel> {
